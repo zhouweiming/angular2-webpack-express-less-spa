@@ -1,0 +1,14 @@
+{
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
+    "ejs": "registry:dt/ejs#0.0.0+20160317120654",
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160701212727",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "lodash": "registry:dt/lodash#3.10.0+20160619033623",
+    "mime": "registry:dt/mime#0.0.0+20160316155526",
+    "node": "registry:dt/node#6.0.0+20160621231320",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+  }
+}

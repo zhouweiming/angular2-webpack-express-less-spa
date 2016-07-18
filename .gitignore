@@ -1,0 +1,10 @@
+# Ignore Mac OS desktop services store
+.DS_Store
+
+# Ignore Windows desktop setting file
+desktop.ini
+node_modules
+.vscode
+npm-debug.log
+typings
+static
