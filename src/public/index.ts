@@ -25,7 +25,7 @@ import 'rxjs';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 
-import "./css/index.css";
+import "./css/index.less";
 
 import { DataTableComponent } from './components/data-table/datatable.component.ts';
 if (process.env.ENV === 'production') {

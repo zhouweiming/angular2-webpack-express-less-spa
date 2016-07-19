@@ -33,14 +33,14 @@ module.exports = {
         loader: 'file?name=assets/[name].[hash].[ext]'
       },
       {
-        test: /\.css$/,
+        test: /\.less$/,
         exclude: helpers.root('public', 'components'),
-        loader: 'style!css?sourceMap'
+        loader: 'style!css?sourceMap!less?sourceMap'
       },
       {
-        test: /\.css$/,
+        test: /\.less$/,
         include: helpers.root('public', 'components'),
-        loader: 'raw'
+        loader: 'raw!less?sourceMap'
       }
     ]
   }
