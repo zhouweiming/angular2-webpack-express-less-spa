@@ -46,3 +46,4 @@
 遗留
 ----
 1. 对于`component`中reqiure的less，无法做到局部刷新，正在修改。
+2. windows系统上启动不起来，错误原因估计类似<https://github.com/webpack/webpack/issues/2362>。
