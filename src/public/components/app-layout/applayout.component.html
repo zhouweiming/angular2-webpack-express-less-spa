@@ -1,0 +1,14 @@
+<div class = 'main-app-wrap'>
+  <div class = 'app-main'>
+    <div class = 'left-nav-wrap'>
+      <nav>
+        <a [routerLink] = '["/welcome"]' routerLinkActive = 'active'>welcowwwwme</a>
+        <a [routerLink] = '["/demo"]' routerLinkActive = 'active'>demo</a>
+        <a [routerLink] = '["/demo1", {a:1}]' a=1 routerLinkActive = 'active'>demo11111</a>
+      </nav>
+    </div>
+    <div class = 'app-context-wrap'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

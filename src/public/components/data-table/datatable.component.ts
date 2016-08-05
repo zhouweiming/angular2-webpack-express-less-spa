@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import "./datatable.component.less";
 
 @Component({
   selector: 'data-table',

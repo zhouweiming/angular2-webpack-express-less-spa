@@ -13,13 +13,12 @@ router.get(/^(?!\/public\/).*?$/, (req, res) => {
     layout: false,
     title: "IERMU管理平台",
     env: process.env.NODE_ENV,
-    baseurl: process.env.NODE_ENV === "dev" ? `http://localhost:${app_config.port}` : "/"
+    language: req.url.indexOf("/en") > -1 ? "en" : "zh-cn",
+    baseurl: process.env.NODE_ENV === "development" ? `http://localhost:${app_config.port}` : "/"
   });
 });
-
-if (process.env.NODE_ENV === "dev") {
+if (process.env.NODE_ENV === "development") {
   let webpack = require('webpack'),
-    webpackDevServer = require('webpack-dev-server'),
     webpackDevMiddleware = require('webpack-dev-middleware'),
     webpackHotMiddleware = require('webpack-hot-middleware'),
     webpackDevConfig = require('./webpack.config.js');
@@ -30,7 +29,8 @@ if (process.env.NODE_ENV === "dev") {
     noInfo: true,
     stats: {
       colors: true
-    }
+    },
+    headers: { "Access-Control-Allow-Origin": "*" }
   }));
   app.use(webpackHotMiddleware(compiler));
   app.use(router);

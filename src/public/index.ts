@@ -1,32 +1,14 @@
-import 'core-js/es6';
-import 'reflect-metadata';
-require('zone.js/dist/zone');
-if (process.env.ENV === 'production') {
-  // Production
-} else {
-  // Development
-  Error['stackTraceLimit'] = Infinity;
-  require('zone.js/dist/long-stack-trace-zone');
-}
-// Angular 2
-import '@angular/platform-browser';
-import '@angular/platform-browser-dynamic';
-import '@angular/core';
-import '@angular/common';
-import '@angular/http';
-import '@angular/router';
-// RxJS
-import 'rxjs';
-// Other vendors for example jQuery, Lodash or Bootstrap
-// You can import js, ts, css, sass, ...
-
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
+import { DBServer } from "./services/callserver";
 
 import "./css/index.less";
 
-import { DataTableComponent } from './components/data-table/datatable.component.ts';
+import { AppLayoutComponent } from './components/app-layout/applayout.component';
+import { APP_ROUTER_PROVIDERS } from './app.route';
+import { ContextLayoutService } from "./services/contexttitle.service";
 if (process.env.ENV === 'production') {
   enableProdMode();
 }
-bootstrap(DataTableComponent, []);
+bootstrap(AppLayoutComponent, [APP_ROUTER_PROVIDERS, HTTP_PROVIDERS, DBServer, ContextLayoutService]);

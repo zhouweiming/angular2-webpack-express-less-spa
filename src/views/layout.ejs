@@ -4,10 +4,11 @@
     <% include _head_meta %>
   </head>
   <body class = 'clearfix'>
-  eqweqweqweqweqweqwe111111aaaaaaaaa123123213123123123
-    <data-table>Loading...</data-table>
+    <app-layout>Loading...</app-layout>
   </body>
-  <% if(env === "dev") {%>
+  <% if(env === "development") {%>
+    <script type = 'text/javascript' src = '<%=baseurl%>/public/test.js'></script>
+    <script type = 'text/javascript' src = '<%=baseurl%>/public/common.js'></script>
     <script type = 'text/javascript' src = '<%=baseurl%>/public/index.js'></script>
   <%}%>
 </html>

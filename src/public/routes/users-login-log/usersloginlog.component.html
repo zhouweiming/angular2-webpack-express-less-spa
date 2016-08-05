@@ -1,0 +1,10 @@
+<div>
+  <a (click) = "goto(-1)">上一页</a>
+  <a (click) = "goto(1)">下一页</a>
+  <ul>
+    <li *ngFor = "let user of users">
+      <p>id: {{user.id}}</p>
+      <p>name: {{user.name}}</p>
+    </li>
+  </ul>
+</div>
