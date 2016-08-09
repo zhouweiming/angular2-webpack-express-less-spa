@@ -3,6 +3,7 @@ import { enableProdMode } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { DBServer } from "./services/callserver";
 
+import "./css/bootstrap/bootstrap.less";
 import "./css/index.less";
 
 import { AppLayoutComponent } from './components/app-layout/applayout.component';

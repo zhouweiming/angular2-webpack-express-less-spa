@@ -4,7 +4,7 @@ import { ContextLayoutService } from "../../services/contexttitle.service";
 @Component({
   selector: 'demo',
   template: require('./demo.component.html'),
-  styles: [require("./demo.component.less")]
+  //styles: [require("./demo.component.less")]
 })
 
 export class DemoComponent {

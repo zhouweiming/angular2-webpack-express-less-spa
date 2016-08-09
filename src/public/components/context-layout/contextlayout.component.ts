@@ -5,7 +5,7 @@ import { ContextLayoutService } from "../../services/contexttitle.service";
 @Component({
   selector: 'context-layout',
   template: require('./contextlayout.component.html'),
-  styles: [require("./contextlayout.component.less")],
+  //styles: [require("./contextlayout.component.less")],
   directives: [ROUTER_DIRECTIVES]
 })
 

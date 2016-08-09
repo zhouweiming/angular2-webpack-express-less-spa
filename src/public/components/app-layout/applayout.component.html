@@ -2,12 +2,15 @@
   <div class = 'app-main'>
     <div class = 'left-nav-wrap'>
       <nav>
-        <a [routerLink] = '["/welcome"]' routerLinkActive = 'active'>welcowwwwme</a>
+        <a [routerLink] = '["/welcome"]' routerLinkActive = 'active'>
+          <span class = 'glyphicon glyphicon-search'></span>welcowwwwme
+        </a>
         <a [routerLink] = '["/demo"]' routerLinkActive = 'active'>demo</a>
         <a [routerLink] = '["/demo1", {a:1}]' a=1 routerLinkActive = 'active'>demo11111</a>
       </nav>
     </div>
     <div class = 'app-context-wrap'>
+      <img src = '../../images/01.png' />
       <router-outlet></router-outlet>
     </div>
   </div>

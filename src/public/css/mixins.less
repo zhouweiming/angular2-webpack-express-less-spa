@@ -1,0 +1,355 @@
+@import "bootstrap/mixins";
+@import "variables";
+
+@x-domains-length: length(@x-domains);
+.makeRandom(@min: 0, @max : @min+1, @int: 0) {
+  .checkInt() {
+    @getNum : `Math.random() * (@{max} - @{min} + @{int})`;
+    @base : unit(`@{int} == 1 ? Math.floor(@{getNum}) : @{getNum}`);
+  }
+  .checkInt();
+  @randNum : @base + @min;
+}
+.x-get-domain(){
+  .makeRandom(1,@x-domains-length,1);
+  @domain: extract(@x-domains, @randNum);
+}
+
+/*背景函数*/
+.x-cbg(@imgPath){
+  .x-get-domain();
+  background-image: e('url("@{x-imgPath}@{imgPath}")');
+}
+.x-bg-rp(@repeat:no-repeat, @position: 0 0){
+  background-repeat: @repeat;
+  background-position: @position;
+}
+/*背景函数*/
+.x-bg(@imgPath, @params:no-repeat){
+  .x-get-domain();
+  background: e('url("@{x-imgPath}@{imgPath}")') @params;
+}
+/*背景函数(时间戳)*/
+.x-bg-ts(@imgPath, @ext:png, @params:no-repeat){
+  .x-bg("@{imgPath}.@{ext}",@params);
+}
+.x-layout() {
+  position:fixed;
+  z-index:@x-z-index-layout;
+  overflow:hidden;
+}
+.x-pop(@zIndex : @x-z-index-pop){
+  position:absolute;
+  z-index:1000;
+  display:none;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+.x-transition (@trans) {
+  -webkit-transition: @trans;
+  -moz-transition: @trans;
+  -ms-transition: @trans;
+  -o-transition: @trans;
+  transition: @trans;
+
+}
+
+.x-transform(@trans) {
+  -webkit-transform: @trans;
+  -moz-transform: @trans;
+  -ms-transform: @trans;
+  -o-transform: @trans;
+  transform: @trans;
+
+    transition+: transform @trans;
+    -moz-transition+: -moz-transform @trans;
+    -webkit-transition+: -webkit-transform @trans;
+    -o-transition+: -o-transform @trans;
+    -ms-transition+: -ms-transform @trans;
+}
+.x-transform-rotate(@degVal:90) {
+  .x-transform(rotate(unit(@degVal,deg)));
+}
+.x-animation(@name;@time;@ani_fn:ease;@ani_loop:infinite;@delay:0s){
+    animation:@arguments;
+    -moz-animation:@arguments;
+    -webkit-animation:@arguments;
+    -o-animation:@arguments;
+    -ms-animation:@arguments;
+}
+
+.x-placeholder(@color: #ccc, @font-size: 12px){
+  &::-webkit-input-placeholder{color: @color; font-size: @font-size}
+  &::-moz-placeholder{color: @color; font-size: @font-size}
+  &:-ms-input-placeholder{color: @color; font-size: @font-size}
+}
+.x-border-image(@url,@val, @ext: png){
+  -webkit-border-image:url("@{x-imgPath}@{url}.@{ext}") @val;
+  -moz-border-image:url("@{x-imgPath}@{url}.@{ext}") @val;
+  -o-border-image:url("@{x-imgPath}@{url}.@{ext}") @val;
+  border-image:url("@{x-imgPath}@{url}.@{ext}") @val;
+}
+
+.x-area-size(@w, @h){
+  width:@w;
+  height:@h;
+}
+.x-icon-size(@size:16px){
+  .x-area-size(@size, @size);
+}
+.x-ficon(){
+  font-family: "@{x-icon-font-name}";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Clearfix
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+.x-clearfix() {
+  *zoom : 1;
+  &:before,
+  &:after {
+    content : " ";
+    display : table;
+  }
+  &:after {
+    clear : both;
+  }
+}
+
+.x-font-size (@size) {
+    @unit : 1rem;
+    @rem : ((@size / 10px) * @unit);
+    font-size : @size;
+    font-size : @rem;
+}
+.x-line-height (@size) {
+    @unit : 1rem;
+    @rem : ((@size / 10px) * @unit);
+    line-height : @size;
+    line-height : @rem;
+}
+
+//set line-height
+.x-adjust-leading-to(@lines, @size:@x-base-font-size, @offset:0px) {
+  line-height : (@lines * @size - @offset);
+}
+
+//set line-and-height
+.x-line-and-height(@lines, @size:@x-base-font-size) {
+  line-height : (@lines * @size);
+  height : (@lines * @size);
+}
+
+//set border radius
+//@radius : 5px;
+.x-border-radius (@radius:5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+//set box-shadow
+.x-box-shadow-none () {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.x-box-shadow-base (@x : 0, @y : 0, @blur : 1px, @color : #000, inset) {
+  //-webkit-box-shadow: @arguments;
+  //-moz-box-shadow: @arguments;
+  //box-shadow: @arguments;
+  -webkit-box-shadow: @x @y @blur @color inset;
+  -moz-box-shadow: @x @y @blur @color inset;
+  box-shadow: @x @y @blur @color inset;
+}
+.x-box-shadow-base (@x : 0, @y : 0, @blur : 1px, @size: 1px , @color : #000, inset) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+//box shadow style
+.x-box-shadow (@shdow-color : rgba(0,0,0, .29), @inset-color : rgba(255, 255,255, .3)) {
+  -webkit-box-shadow: 1px 1px 1px @shdow-color, inset 1px 1px 1px @inset-color;
+  -moz-box-shadow: 1px 1px 1px @shdow-color, inset 1px 1px 1px @shdow-color;
+  box-shadow: 1px 1px 1px @shdow-color, inset 1px 1px 1px @shdow-color;
+}
+
+//text overflow ellipsis
+.x-text-ellipsis (@width:100%) {
+  white-space: nowrap;
+  *width: @width;       /* IE6 需要定義寬度 */
+  overflow: hidden;
+  -o-text-overflow: ellipsis; /* Opera */
+  text-overflow:    ellipsis; /* IE, Safari (WebKit) */
+}
+
+//3d effect style
+.x-3d-effect (@from-color:#000, @to-color:#fff, @shdow-color:rgba(0,0,0, .29), @inset-color:rgba(255,255,255, .3)) {
+  .x-box-shadow(rgba(0,0,0, .29), rgba(255,255,255, .3));
+
+  -webkit-transition: all 0.15s ease;
+  -moz-transition: all 0.15s ease;
+  -o-transition: all 0.15s ease;
+  -ms-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+
+  .x-gradient-linear(@from-color, @to-color);
+}
+
+
+
+//gradient style
+.x-gradient-linear (@from-color:#000, @to-color:#fff) {
+  background: -moz-linear-gradient(top,  @from-color 0%, @to-color 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@from-color), color-stop(100%,@from-color)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  @from-color 0%,@to-color 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  @from-color 0%,@to-color 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  @from-color 0%,@to-color 100%); /* IE10+ */
+  background: linear-gradient(top,  @from-color 0%,@to-color 100%); /* W3C */
+}
+
+//gradient style
+.x-gradient-horizontal (@from-color:#000, @to-color:#fff) {
+  background: -moz-linear-gradient(top,  @from-color 0%, @to-color 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(@from-color), to(@from-color)); /* Chrome,Safari4+ */
+  //background: -webkit-linear-gradient(top,  @from-color 0%,@to-color 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  @from-color 0%,@to-color 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  @from-color 0%,@to-color 100%); /* IE10+ */
+  background: linear-gradient(top,  @from-color 0%,@to-color 100%); /* W3C */
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=@from-color,endColorstr=@to-color,grandientType=1);
+}
+//gradient style
+.x-gradient-vertical (@from-color:#000, @to-color:#fff) {
+  background: -moz-linear-gradient(top,  @from-color 0%, @to-color 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0%,@from-color), color-stop(100%,@from-color)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  @from-color 0%,@to-color 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  @from-color 0%,@to-color 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  @from-color 0%,@to-color 100%); /* IE10+ */
+  background: linear-gradient(top,  @from-color 0%,@to-color 100%); /* W3C */
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=@from-color,endColorstr=@to-color,grandientType=2);
+}
+
+//arrow style without icon
+.x-arrow-up-style (@color : #C6DFE7, @size : 5px) {
+  display : block;
+  width : 0;
+  height : 0;
+  border-color : transparent;
+  border-style : solid;
+  border-width : @size;
+  border-bottom-color : @color;
+  border-top: 0;
+}
+.x-arrow-down-style (@color : #C6DFE7, @size : 5px) {
+  display : block;
+  width : 0;
+  height : 0;
+  border-color : transparent;
+  border-style : solid;
+  border-width : @size;
+  border-top-color : @color;
+  border-bottom: 0;
+}
+.x-arrow-left-style (@color : #C6DFE7, @size : 5px) {
+  display : block;
+  width : 0;
+  height : 0;
+  border-color : transparent;
+  border-style : solid;
+  border-width : @size;
+  border-right-color : @color;
+  border-left: 0;
+}
+.x-arrow-right-style (@color : #C6DFE7, @size : 5px) {
+  display : block;
+  width : 0;
+  height : 0;
+  border-color : transparent;
+  border-style : solid;
+  border-width : @size;
+  border-left-color : @color;
+  border-right: 0;
+}
+
+.x-breakword (){
+  word-wrap:break-word;
+  word-break:break-all;
+}
+
+.x-box-sizing(@border: border-box){
+  -moz-box-sizing: @border;  /*Firefox3.5+*/
+  -webkit-box-sizing: @border; /*Safari3.2+*/
+  -o-box-sizing: @border; /*Opera9.6*/
+  -ms-box-sizing: @border; /*IE8*/
+  box-sizing: @border;
+}
+
+/**
+ * @元素不可选择
+*/
+.x-user-select(){
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.x-background-size(@para){
+    background-size:@para;
+   -moz-background-size:@para;
+   -webkit-background-size:@para;
+   -o-background-size:@para;
+}
+
+.x-opacity(@opacity:1){
+    -moz-opacity: @opacity;
+    -khtml-opacity: @opacity;
+    -webkit-opacity: @opacity;
+    opacity: @opacity;
+    @opperc: @opacity * 100;
+    -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+    filter: ~"alpha(opacity=@{opperc})";
+}
+
+/**
+ * @延迟动画
+*/
+.x-transition-delay(@a){
+    transition-delay: @a;
+    -moz-transition-delay: @a;
+    -webkit-transition-delay: @a;
+    -o-transition-delay: @a;
+    -ms-transition-delay: @a;
+}
+
+input::-ms-clear { display: none; }
+.x-layout-vertical-middle(@height:auto; @top: 50%;){
+  position: absolute;
+  top: @top;
+  margin-top: -@height/2;
+}
+.x-layout-align-center(@width:auto; @left: 50%){
+  position: absolute;
+  left: @left;
+  margin-left: -@width/2;
+}

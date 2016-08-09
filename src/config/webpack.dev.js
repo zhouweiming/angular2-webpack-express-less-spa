@@ -9,15 +9,13 @@ module.exports = webpackMerge(commonConfig, {
 
   output: {
     path: helpers.root('public'),
-    publicPath: 'http://localhost:8889/public/',
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
+    publicPath: 'http://localhost:8890/public/',
+    filename: 'assets/[name].js',
+    chunkFilename: 'assets/[id].chunk.js'
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css'),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ]
 });

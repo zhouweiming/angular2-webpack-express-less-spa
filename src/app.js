@@ -26,13 +26,15 @@ if (process.env.NODE_ENV === "development") {
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackDevConfig.output.publicPath,
-    noInfo: true,
+    noInfo: false,
     stats: {
       colors: true
     },
     headers: { "Access-Control-Allow-Origin": "*" }
   }));
-  app.use(webpackHotMiddleware(compiler));
+  app.use(webpackHotMiddleware(compiler, {
+    headers: { "Access-Control-Allow-Origin": "*" }
+  }));
   app.use(router);
   let bs = require('browser-sync').create();
   app.listen(app_config.port, () => {

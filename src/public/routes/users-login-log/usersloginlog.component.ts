@@ -3,7 +3,7 @@ import { UserService } from "../../services/user.service"
 @Component({
   selector: 'users-login-log',
   template: require('./usersloginlog.component.html'),
-  styles: [require("./usersloginlog.component.less")],
+  //styles: [require("./usersloginlog.component.less")],
   providers: [UserService]
 })
 

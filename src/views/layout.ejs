@@ -2,13 +2,17 @@
 <html lang="zh-CN" xml:lang="zh-CN">
   <head>
     <% include _head_meta %>
+    <% if(env === "development") {%>
+      <link href="<%=baseurl%>/public/assets/common.css" rel="stylesheet">
+      <link href="<%=baseurl%>/public/assets/component.css" rel="stylesheet">
+    <%}%>
   </head>
   <body class = 'clearfix'>
     <app-layout>Loading...</app-layout>
   </body>
   <% if(env === "development") {%>
-    <script type = 'text/javascript' src = '<%=baseurl%>/public/test.js'></script>
-    <script type = 'text/javascript' src = '<%=baseurl%>/public/common.js'></script>
-    <script type = 'text/javascript' src = '<%=baseurl%>/public/index.js'></script>
+    <script type = 'text/javascript' src = '<%=baseurl%>/public/assets/common.js'></script>
+    <script type = 'text/javascript' src = '<%=baseurl%>/public/assets/test.js'></script>
+    <script type = 'text/javascript' src = '<%=baseurl%>/public/assets/index.js'></script>
   <%}%>
 </html>

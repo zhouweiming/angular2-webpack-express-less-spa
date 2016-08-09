@@ -1,21 +1,26 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
+const is_development = process.env.NODE_ENV === "development";
+
+var commonExtract = new ExtractTextPlugin("assets/common" + (is_development ? "" : ".[hash]") + ".css");
+var componentExtract = new ExtractTextPlugin("assets/component" + (is_development ? "" : ".[hash]") + ".css");
+
 let getEntry = () => {
-  if(process.env.NODE_ENV === "development"){
+  if (is_development) {
     return {
       'common': ['./public/common.ts', hotMiddlewareScript],
       'index': ['./public/index.ts', hotMiddlewareScript],
       'test': ['./public/dev_db/zbase.test.ts', hotMiddlewareScript]
     };
-  }else{
+  } else {
     return {
       'common': ['./public/common.ts'],
-      'index': ['./public/index.ts'],
-      'test': ['./public/dev_db/zbase.test.ts']
+      'index': ['./public/index.ts']
     }
   }
 };
@@ -48,26 +53,29 @@ module.exports = {
       {
         test: /\.less$/,
         exclude: [helpers.root('public', 'components'), helpers.root('public', 'routes')],
-        loader: 'style!css?sourceMap!less?sourceMap'
+        loader: commonExtract.extract('style', 'css?sourceMap!less?sourceMap')
       },
       {
         test: /\.less$/,
         include: [helpers.root('public', 'components'), helpers.root('public', 'routes')],
-        loader: 'raw!less?sourceMap'
+        loader: componentExtract.extract('style', 'css?sourceMap!less?sourceMap')
       }
     ]
   },
   plugins: [
+    new webpack.NoErrorsPlugin(),
+    commonExtract,
+    componentExtract,
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['index', 'common', 'test']
+      name: is_development ? ["index", "test", "common"] : ['index', 'common']
     }),
     new DefinePlugin({
-     'ENV': JSON.stringify(process.env.NODE_ENV),
-     'HMR': process.env.NODE_ENV === "development",
-     'process.env': {
-       'ENV': JSON.stringify(process.env.NODE_ENV),
-       'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-     }
-   })
+      'ENV': JSON.stringify(process.env.NODE_ENV),
+      'HMR': is_development,
+      'process.env': {
+        'ENV': JSON.stringify(process.env.NODE_ENV),
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    })
   ]
 };
